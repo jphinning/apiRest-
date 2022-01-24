@@ -1,5 +1,5 @@
-const userRoutes = require('./userRoutes')
+const userRoutes = require('./userRoutes');
 
-module.exports = app => {
-    userRoutes(app)
-}
+module.exports = (app) => {
+  userRoutes(app);
+};

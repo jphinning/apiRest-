@@ -1,11 +1,11 @@
-const userController = require ('../controllers/userController')
+const userController = require('../controllers/userController');
 
 const userRoutes = (app) => {
-	app.post('/user', userController.post)
-	app.get('/user', userController.get)
-	app.get('/user/:id', userController.getByID)
-	app.put('user/:id', userController.put)
-	app.delete('user/:id', userController.deleteHttp)
-}
+  app.post('/users', userController.post);
+  app.get('/users', userController.get);
+  app.get('/users/:id', userController.getByID);
+  app.put('/users/:id', userController.put);
+  app.delete('/users/:id', userController.deleteHttp);
+};
 
-module.exports = userRoutes
+module.exports = userRoutes;
