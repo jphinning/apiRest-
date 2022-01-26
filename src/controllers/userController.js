@@ -2,28 +2,54 @@
 Callback funtions for app.get(), app.post() that are
 being treated in their respective routes
 */
+const blogModel = require('../models/blogs');
 
-const post = (req, res) => {
-  res.status(201).send('POST Route');
+const post = async (req, res, next) => {
+  try {
+    const addBlog = await blogModel.create(req.body);
+    res.json(addBlog);
+  } catch (error) {
+    next(error);
+  }
 };
 
-const get = (req, res) => {
-  res.status(200).send('GET Route');
+const get = async (req, res, next) => {
+  try {
+    const allBlogs = await blogModel.find({});
+    res.json(allBlogs);
+  } catch (error) {
+    next(error);
+  }
 };
 
-const getByID = (req, res) => {
-  const { id } = req.params;
-  res.status(200).send(`GET route with ID -> ${id}`);
+const getByID = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const oneBlog = await blogModel.findById(id);
+    res.json(oneBlog);
+  } catch (error) {
+    next(error);
+  }
 };
 
-const put = (req, res) => {
-  const { id } = req.params;
-  res.status(201).send(`PUT route with id -> ${id}`);
+const put = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const updatedBlog = await blogModel.findByIdAndUpdate(id, req.body, { new: true });
+    res.json(updatedBlog);
+  } catch (error) {
+    next(error);
+  }
 };
 
-const deleteHttp = (req, res) => {
-  const { id } = req.params;
-  res.status(200).send(`DELETE Route with id -> ${id}`);
+const deleteHttp = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await blogModel.findByIdAndDelete(id);
+    res.status(200).send(`DELETED from database with id -> ${id}`);
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
